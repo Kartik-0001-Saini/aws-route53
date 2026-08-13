@@ -8,6 +8,7 @@ from sqlalchemy import Engine, create_engine, event
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.config import settings
+from app.db.base import Base
 
 _is_sqlite = settings.DATABASE_URL.startswith("sqlite")
 
@@ -65,4 +66,19 @@ def get_db() -> Generator[Session, None, None]:
         db.close()
 
 
-__all__ = ["engine", "SessionLocal", "get_db", "Engine"]
+def init_sqlite_database() -> None:
+    """Create SQLite tables for serverless/demo deployments.
+
+    Production on Vercel uses an empty database file under /tmp, so Alembic is
+    not available before the first request. Importing models populates
+    Base.metadata before create_all runs.
+    """
+    if not _is_sqlite:
+        return
+
+    import app.models  # noqa: F401
+
+    Base.metadata.create_all(bind=engine)
+
+
+__all__ = ["engine", "SessionLocal", "get_db", "init_sqlite_database", "Engine"]

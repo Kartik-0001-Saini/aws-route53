@@ -24,6 +24,7 @@ from app.core.exceptions import (
     validation_error_handler,
 )
 from app.core.security import init_firebase, is_firebase_ready
+from app.db.session import init_sqlite_database
 
 logging.basicConfig(
     level=logging.INFO,
@@ -40,6 +41,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     so a bad service-account credential shows up in the boot log instead of as
     a puzzling 401 later.
     """
+    init_sqlite_database()
     init_firebase()
     logger.info(
         "%s starting — environment=%s, google_sign_in=%s",
