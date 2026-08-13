@@ -1,3 +1,21 @@
+[project]
+name = "aws-route53-backend"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi==0.115.6",
+    "uvicorn[standard]==0.34.0",
+    "SQLAlchemy==2.0.36",
+    "alembic==1.14.0",
+    "pydantic==2.10.4",
+    "pydantic-settings==2.7.0",
+    "email-validator==2.2.0",
+    "firebase-admin==6.6.0",
+    "PyJWT==2.10.1",
+    "pytest==8.3.4",
+    "httpx==0.28.1",
+]
+
 [tool.pytest.ini_options]
 # Puts `backend/` on sys.path so tests import `app.*` without a PYTHONPATH
 # dance, and without an editable install.
