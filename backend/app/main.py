@@ -79,6 +79,8 @@ def create_app() -> FastAPI:
     app.add_exception_handler(RequestValidationError, validation_error_handler)
 
     app.include_router(api_router, prefix=settings.API_V1_PREFIX)
+    if settings.ENVIRONMENT == "production":
+        app.include_router(api_router, prefix=f"/api/backend{settings.API_V1_PREFIX}")
 
     @app.get("/health", tags=["Health"], status_code=status.HTTP_200_OK)
     def health() -> dict[str, object]:
