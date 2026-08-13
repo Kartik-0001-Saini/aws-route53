@@ -1,0 +1,16 @@
+[tool.pytest.ini_options]
+# Puts `backend/` on sys.path so tests import `app.*` without a PYTHONPATH
+# dance, and without an editable install.
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]

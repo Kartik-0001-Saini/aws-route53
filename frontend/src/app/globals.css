@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Design tokens — derived from AWS Cloudscape, the design system the Route 53
+   console is built on.
+
+   Every colour, radius and type size in the app comes from here. Components
+   never hardcode a hex value: that is what makes the dark theme a token swap
+   instead of a rewrite, and what keeps five days of screens looking like one
+   product.
+
+   Token names follow Cloudscape's own vocabulary (`--color-background-*`,
+   `--color-text-*`, `--color-border-*`) so anything checked against the real
+   console maps across by name.
+   ========================================================================== */
+
+/* Dark mode is class-driven, not media-driven: the console has an explicit
+   theme switch, and the choice has to survive a reload. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* ---- Surfaces ------------------------------------------------------- */
+  --color-background-page: #f2f3f3;
+  --color-background-container: #ffffff;
+  --color-background-container-header: #ffffff;
+  --color-background-input: #ffffff;
+  --color-background-input-disabled: #e9ebed;
+  --color-background-hover: #f4f4f4;
+  --color-background-selected: #f0fbff;
+  --color-background-code: #f4f4f4;
+
+  /* The console header is near-black navy in both themes — it is the one
+     surface that does not invert. */
+  --color-background-top-nav: #0f1b2a;
+  --color-background-side-nav: #ffffff;
+
+  /* ---- Text ----------------------------------------------------------- */
+  --color-text-body: #0f141a;
+  --color-text-heading: #0f141a;
+  --color-text-secondary: #424650;
+  --color-text-label: #424650;
+  --color-text-disabled: #8c8c94;
+  --color-text-inverted: #ffffff;
+  --color-text-link: #006ce0;
+  --color-text-link-hover: #002b66;
+
+  /* ---- Borders -------------------------------------------------------- */
+  --color-border-divider: #c6c6cd;
+  --color-border-subtle: #e9ebed;
+  --color-border-input: #8c8c94;
+  --color-border-focus: #006ce0;
+
+  /* ---- Interactive ---------------------------------------------------- */
+  --color-primary: #006ce0;
+  --color-primary-hover: #002b66;
+  --color-primary-active: #001a4d;
+  --color-primary-text: #ffffff;
+
+  /* ---- Status --------------------------------------------------------- */
+  --color-status-error: #db0000;
+  --color-status-error-bg: #fff7f7;
+  --color-status-success: #00802f;
+  --color-status-success-bg: #f2fcf3;
+  --color-status-warning: #855900;
+  --color-status-warning-bg: #fffce9;
+  --color-status-info: #006ce0;
+  --color-status-info-bg: #f0fbff;
+
+  /* ---- Elevation ------------------------------------------------------ */
+  --shadow-container: 0 1px 8px 2px rgba(0, 7, 22, 0.1);
+  --shadow-dropdown: 0 4px 20px 1px rgba(0, 7, 22, 0.1);
+  --shadow-modal: 0 4px 20px 1px rgba(0, 7, 22, 0.15);
+}
+
+.dark {
+  --color-background-page: #0f1b2a;
+  --color-background-container: #161d26;
+  --color-background-container-header: #192534;
+  --color-background-input: #0f1b2a;
+  --color-background-input-disabled: #232b37;
+  --color-background-hover: #192534;
+  --color-background-selected: #192534;
+  --color-background-code: #0f1b2a;
+
+  --color-background-top-nav: #0f1b2a;
+  --color-background-side-nav: #161d26;
+
+  --color-text-body: #d1d5db;
+  --color-text-heading: #e9ebed;
+  --color-text-secondary: #a4b0bf;
+  --color-text-label: #d1d5db;
+  --color-text-disabled: #5f6b7a;
+  --color-text-inverted: #0f141a;
+  --color-text-link: #42b4ff;
+  --color-text-link-hover: #75cfff;
+
+  --color-border-divider: #414d5c;
+  --color-border-subtle: #232b37;
+  --color-border-input: #5f6b7a;
+  --color-border-focus: #42b4ff;
+
+  --color-primary: #42b4ff;
+  --color-primary-hover: #75cfff;
+  --color-primary-active: #99daff;
+  --color-primary-text: #000716;
+
+  --color-status-error: #ff7a7a;
+  --color-status-error-bg: #1f1a1c;
+  --color-status-success: #29ad32;
+  --color-status-success-bg: #1a1f1c;
+  --color-status-warning: #f2cd54;
+  --color-status-warning-bg: #1f1d1a;
+  --color-status-info: #42b4ff;
+  --color-status-info-bg: #192534;
+
+  --shadow-container: 0 1px 8px 2px rgba(0, 7, 22, 0.6);
+  --shadow-dropdown: 0 4px 20px 1px rgba(0, 7, 22, 0.6);
+  --shadow-modal: 0 4px 20px 1px rgba(0, 7, 22, 0.7);
+}
+
+/* Expose the tokens to Tailwind so `bg-container`, `text-secondary`,
+   `border-divider` and friends resolve as utilities. `inline` keeps the
+   `var()` reference in the output, which is what lets `.dark` re-point a
+   token without regenerating any class. */
+@theme inline {
+  --color-page: var(--color-background-page);
+  --color-container: var(--color-background-container);
+  --color-container-header: var(--color-background-container-header);
+  --color-input: var(--color-background-input);
+  --color-input-disabled: var(--color-background-input-disabled);
+  --color-hover: var(--color-background-hover);
+  --color-selected: var(--color-background-selected);
+  --color-code: var(--color-background-code);
+  --color-top-nav: var(--color-background-top-nav);
+  --color-side-nav: var(--color-background-side-nav);
+
+  --color-body: var(--color-text-body);
+  --color-heading: var(--color-text-heading);
+  --color-secondary: var(--color-text-secondary);
+  --color-label: var(--color-text-label);
+  --color-disabled: var(--color-text-disabled);
+  --color-inverted: var(--color-text-inverted);
+  --color-link: var(--color-text-link);
+  --color-link-hover: var(--color-text-link-hover);
+
+  --color-divider: var(--color-border-divider);
+  --color-subtle: var(--color-border-subtle);
+  --color-input-border: var(--color-border-input);
+  --color-focus: var(--color-border-focus);
+
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-active: var(--color-primary-active);
+  --color-on-primary: var(--color-primary-text);
+
+  --color-error: var(--color-status-error);
+  --color-error-bg: var(--color-status-error-bg);
+  --color-success: var(--color-status-success);
+  --color-success-bg: var(--color-status-success-bg);
+  --color-warning: var(--color-status-warning);
+  --color-warning-bg: var(--color-status-warning-bg);
+  --color-info: var(--color-status-info);
+  --color-info-bg: var(--color-status-info-bg);
+
+  /* Amazon Ember is the console's typeface and is not redistributable, so the
+     stack falls through to the closest widely available faces. */
+  --font-sans: "Amazon Ember", "Helvetica Neue", Roboto, Arial, sans-serif;
+  --font-mono: "Amazon Ember Mono", "Monaco", "Menlo", "Consolas", monospace;
+
+  /* Cloudscape's type scale. 14px body is the console default and is what
+     gives its tables their density. */
+  --text-xs: 0.75rem;      /* 12px — badges, table metadata      */
+  --text-sm: 0.875rem;     /* 14px — body, table cells, controls */
+  --text-base: 1rem;       /* 16px — container headings           */
+  --text-lg: 1.125rem;     /* 18px — section headings             */
+  --text-xl: 1.5rem;       /* 24px — page title                   */
+
+  /* Cloudscape's visual refresh: pill buttons, rounded containers. */
+  --radius-button: 20px;
+  --radius-container: 16px;
+  --radius-input: 8px;
+  --radius-badge: 4px;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+html {
+  /* Cloudscape sets the root to 14px; every rem in the app scales from it. */
+  font-size: 100%;
+}
+
+body {
+  background: var(--color-background-page);
+  color: var(--color-text-body);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.43;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* A single visible focus ring everywhere, matching the console's. Applied via
+   :focus-visible so it appears for keyboard users and not on mouse clicks. */
+:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Thin scrollbars, so the side nav and dense tables do not gain a heavy
+   chrome-coloured gutter. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-divider) transparent;
+}

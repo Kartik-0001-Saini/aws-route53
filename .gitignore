@@ -1,0 +1,50 @@
+# ---- Secrets -----------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*-service-account*.json
+
+# Scratch files people drop credentials into. Broad on purpose — the cost of
+# ignoring one file too many is nothing next to committing a private key.
+cred
+cred.*
+creds
+credentials*
+*firebase*adminsdk*.json
+*.pem
+*.key
+
+# ---- Python ------------------------------------------------------------
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# ---- Database ----------------------------------------------------------
+# SQLite lives on a mounted volume in production and is never committed.
+backend/data/
+*.db
+*.db-shm
+*.db-wal
+
+# ---- Node / Next -------------------------------------------------------
+node_modules/
+.next/
+out/
+build/
+dist/
+next-env.d.ts
+*.tsbuildinfo
+.vercel/
+
+# ---- Tooling -----------------------------------------------------------
+coverage/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
